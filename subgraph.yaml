@@ -1,0 +1,29 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: EchoCampaignFactoryV1
+    network: fraxtal
+    source:
+      address: "0x8F1E629536C74e8d8f58cfcbb44aD9CDf66a2433"
+      abi: EchoCampaignFactoryV1
+      startBlock: 21425024
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CampaignCreated
+        - ImplementationChanged
+      abis:
+        - name: EchoCampaignFactoryV1
+          file: ./abis/EchoCampaignFactoryV1.json
+      eventHandlers:
+        - event: CampaignCreated(indexed address,indexed address,indexed address,string,uint256,string,uint256,(uint256,uint256,address,string,(address,uint128,uint128),(string,(uint8,uint248,uint256,string,string)[]),(uint8,uint88,address,string)[]))
+          handler: handleCampaignCreated
+        - event: ImplementationChanged(indexed address,indexed address)
+          handler: handleImplementationChanged
+      file: ./src/echo-campaign-factory-v-1.ts
