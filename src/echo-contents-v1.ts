@@ -41,6 +41,7 @@ export function handleContentApplied(event: ContentAppliedEvent): void {
   content.campaign = event.params.campaign;
   content.content = event.params.contentLink;
   content.postTime = event.params.lastPostTime;
+  content.contentTotalKPI = BigInt.zero();
   content.lastUpdatedTime = BigInt.zero();
   content.contentEffectiveKPI = BigInt.zero();
   content.contentTotalQAscore = BigInt.zero();
