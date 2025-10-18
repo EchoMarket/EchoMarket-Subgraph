@@ -1,0 +1,1184 @@
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
+        "name": "CAMPAIGN_PAUSED",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "CHECK_QAS_OR_KPIS",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "kpi",
+                "type": "string"
+            }
+        ],
+        "name": "DUPLICATE_KPI",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "qa",
+                "type": "string"
+            }
+        ],
+        "name": "DUPLICATE_QA",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "kpiKind",
+                "type": "string"
+            }
+        ],
+        "name": "GIVEN_KPI_KIND_DOESNT_EXIST_ON_CAMPAIGN",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "qaKind",
+                "type": "string"
+            }
+        ],
+        "name": "GIVEN_QA_KIND_DOESNT_EXIST_ON_CAMPAIGN",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "INVALID_CONTENT_LINK",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NOT_ELIGIBLE_FOR_WITHDRAW",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NO_CONTENT_AUTHOR",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_CLAIMABLE_STATUS",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_CONTENTS",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_FACTORY",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_FINALIZER_ORACLE",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_FINISHED_CAMPAIGN_STATUS",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "enum Status",
+                "name": "status",
+                "type": "uint8"
+            }
+        ],
+        "name": "ONLY_IN_PROGRESS_STATUS",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_OWNER",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_PROTOCOL_ADMIN",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "enum Status",
+                "name": "status",
+                "type": "uint8"
+            }
+        ],
+        "name": "ONLY_UPCOMING_OR_IN_PROGRESS_STATUS",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "x",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "y",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_MulDiv18_Overflow",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "x",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "y",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "denominator",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_MulDiv_Overflow",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "UD60x18",
+                "name": "x",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_UD60x18_Exp2_InputTooBig",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "UD60x18",
+                "name": "x",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_UD60x18_Log_InputTooSmall",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "addedAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "lastBudget",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "newBudget",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "donator",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            }
+        ],
+        "name": "BudgetIncreased",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "finalizer",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "enum Finalizer",
+                "name": "finalizerType",
+                "type": "uint8"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "refundedAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newBudget",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            }
+        ],
+        "name": "CampaignFinalized",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "finishedAt",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            }
+        ],
+        "name": "CampaignFinished",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "bool",
+                "name": "paused",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            }
+        ],
+        "name": "CampaignPauseToggled",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "contentCreator",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "rewardedAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "refundAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "totalPaidAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            }
+        ],
+        "name": "Claimed",
+        "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "admin",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "applicationFee",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            }
+        ],
+        "name": "applyContent",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "budgetInfo",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "token",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "maxPerPost",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "reservedAmount",
+                        "type": "uint128"
+                    }
+                ],
+                "internalType": "struct BudgetInfo",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            }
+        ],
+        "name": "claim",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "name": "contentEffectiveKPI",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "contents",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "currentStatus",
+        "outputs": [
+            {
+                "internalType": "enum Status",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "details",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "ipfsCID",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "owner",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "startTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "endTime",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct BasicInfo",
+                "name": "basicInfo_",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint64",
+                        "name": "initTime",
+                        "type": "uint64"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "clonedCampaign",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "implementation",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct CampaignInitData",
+                "name": "initData_",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "token",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "maxPerPost",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "reservedAmount",
+                        "type": "uint128"
+                    }
+                ],
+                "internalType": "struct BudgetInfo",
+                "name": "budgetInfo_",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "symbol",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "decimals",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct Token",
+                "name": "token_",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "social",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint8",
+                                "name": "pct",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "uint248",
+                                "name": "min",
+                                "type": "uint248"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "ratio",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "method",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "extra",
+                                "type": "string"
+                            }
+                        ],
+                        "internalType": "struct KPI[]",
+                        "name": "kpis",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct SocialKPIs",
+                "name": "socialKPIs_",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "enum QA_METHOD",
+                        "name": "method",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint88",
+                        "name": "pct",
+                        "type": "uint88"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "oracle",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "kind",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct QualificationData[]",
+                "name": "qaData_",
+                "type": "tuple[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "totalPosts",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "totalEligibleContents",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "totalEffectiveKPIs",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "lastPostTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "lastUpdatedTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "applicationFee",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct PostInfo",
+                "name": "postInfo_",
+                "type": "tuple"
+            },
+            {
+                "internalType": "enum Status",
+                "name": "status_",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "endTime",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "factory",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "finalizeFinishedCampaign",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "finalizeInProgressCampaign",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            }
+        ],
+        "name": "getContentCreator",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "increaseBudget",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "ipfsCID",
+                "type": "string"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "token",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "maxPerPost",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "reservedAmount",
+                        "type": "uint128"
+                    }
+                ],
+                "internalType": "struct BudgetInfo",
+                "name": "budgetInfo_",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "social",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint8",
+                                "name": "pct",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "uint248",
+                                "name": "min",
+                                "type": "uint248"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "ratio",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "method",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "extra",
+                                "type": "string"
+                            }
+                        ],
+                        "internalType": "struct KPI[]",
+                        "name": "kpis",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct SocialKPIs",
+                "name": "socialKPIs_",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "enum QA_METHOD",
+                        "name": "method",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint88",
+                        "name": "pct",
+                        "type": "uint88"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "oracle",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "kind",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct QualificationData[]",
+                "name": "qaData_",
+                "type": "tuple[]"
+            }
+        ],
+        "name": "init",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "name",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "nameHash",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "qaData",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "enum QA_METHOD",
+                        "name": "method",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint88",
+                        "name": "pct",
+                        "type": "uint88"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "oracle",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "kind",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct QualificationData[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "tokenAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "recoverERC20",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "refundAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "name": "registeredActionKind",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "enum QA_METHOD",
+                        "name": "method",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint88",
+                        "name": "pct",
+                        "type": "uint88"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "oracle",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "kind",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct QualificationData[]",
+                "name": "qas",
+                "type": "tuple[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint8",
+                        "name": "pct",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint248",
+                        "name": "min",
+                        "type": "uint248"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "ratio",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "method",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "extra",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct KPI[]",
+                "name": "kpis",
+                "type": "tuple[]"
+            }
+        ],
+        "name": "rewardEstimation",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "socialKPIs",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "social",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint8",
+                                "name": "pct",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "uint248",
+                                "name": "min",
+                                "type": "uint248"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "ratio",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "method",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "extra",
+                                "type": "string"
+                            }
+                        ],
+                        "internalType": "struct KPI[]",
+                        "name": "kpis",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct SocialKPIs",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "startTime",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "togglePauseCampaign",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "additionalContentEffectiveKPI",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "additional",
+                "type": "bool"
+            }
+        ],
+        "name": "updateKPIs",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "totalEffectiveKPIs",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "contentEffectiveKPI_",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalEligibleContents",
+                "type": "uint256"
+            },
+            {
+                "internalType": "int8",
+                "name": "eligibilityPolarity",
+                "type": "int8"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

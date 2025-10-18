@@ -1,0 +1,870 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "echoAdministration",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
+        "name": "ACCESS_DENIED",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "pct",
+                "type": "uint256"
+            }
+        ],
+        "name": "CHECK_QA_PCT",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            }
+        ],
+        "name": "CONTENT_DOESNT_EXIST",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "CONTENT_REGISTERED_FOR_CAMPAIGN_BEFORE",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "DIFFERENT_SOCIALS",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "kpiKind",
+                "type": "string"
+            }
+        ],
+        "name": "GIVEN_KPI_KIND_DOESNT_EXIST_ON_CAMPAIGN",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "qaKind",
+                "type": "string"
+            }
+        ],
+        "name": "GIVEN_QA_KIND_DOESNT_EXIST_ON_CAMPAIGN",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ONLY_IN_PROGRESS_OR_PAUSED_OR_FINISHED_CAMPAIGN",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "actionKind",
+                "type": "string"
+            }
+        ],
+        "name": "ORACLE_DOESNT_HAVE_REQUIRED_ACCESS",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ORACLE_IS_BAN",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "x",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "y",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_MulDiv18_Overflow",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "x",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "y",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "denominator",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_MulDiv_Overflow",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "UD60x18",
+                "name": "x",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_UD60x18_Exp2_InputTooBig",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "UD60x18",
+                "name": "x",
+                "type": "uint256"
+            }
+        ],
+        "name": "PRBMath_UD60x18_Log_InputTooSmall",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            }
+        ],
+        "name": "QA_DATA_SETTLED_BEFORE",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "UNDEFINED_JOB",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ZERO_CONTENT_QA_SCORE",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "lastPostTime",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "campaignTotalPosts",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "campaignMaxPerPost",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "EchoMarketData",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "totalPosts",
+                "type": "uint256"
+            }
+        ],
+        "name": "ContentApplied",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "oracle",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "kind",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "value",
+                        "type": "bytes"
+                    }
+                ],
+                "indexed": false,
+                "internalType": "struct ConfigOracleData",
+                "name": "newConfig",
+                "type": "tuple"
+            }
+        ],
+        "name": "ContentConfigAdded",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "additionalMode",
+                "type": "bool"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "additionalContentEffectvieKPI",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "campaignTotalEffectiveKPIs",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "contentEffectiveKPI",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "campaignTotalEligibleContents",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "lastUpdatedTime",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "EchoMarketData",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "totalEligibleContents",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "totalEffectiveKPIs",
+                "type": "uint256"
+            }
+        ],
+        "name": "ContentEffectiveKPIupdated",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "QAoverallScore",
+                "type": "uint256"
+            }
+        ],
+        "name": "ContentQAoverallScore",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "contentTotalKPI",
+                "type": "uint256"
+            }
+        ],
+        "name": "ContentTotalKPIupdated",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "oracle",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "lastCampaignUpdateTime",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "socialKindKPI",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "kpiAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "KPIupdated",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "oracle",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "qaMethodKind",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "pctScore",
+                "type": "uint256"
+            }
+        ],
+        "name": "NewQualificationSettled",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            }
+        ],
+        "name": "ReadyForKPIupdates",
+        "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "ECHO_ADMIN",
+        "outputs": [
+            {
+                "internalType": "contract IEchoAdministration",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "ECHO_FACTORY",
+        "outputs": [
+            {
+                "internalType": "contract IEchoCampaignFactory",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "campaignMaxPerPost",
+                "type": "uint256"
+            }
+        ],
+        "name": "addContentLink",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            }
+        ],
+        "name": "campaignContentInfo",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "lastPostTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "lastUpdatedTime",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "actionKind",
+                "type": "string"
+            }
+        ],
+        "name": "contentToCampaign",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "contentRegistered",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalQaKinds",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "lastUpdatedTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "actionKindValue",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "contents",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "content",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "page",
+                "type": "uint256"
+            }
+        ],
+        "name": "migratedPaginatedContentsWithCampaigns",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "currentPageV1",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalPagesV1",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "campaign",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "content",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct CampaignAndContent[]",
+                "name": "pagedArrayV1",
+                "type": "tuple[]"
+            },
+            {
+                "internalType": "uint256",
+                "name": "currentPageV2",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalPagesV2",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "campaign",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "content",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct CampaignAndContent[]",
+                "name": "pagedArrayV2",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "page",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            }
+        ],
+        "name": "paginatedCampaignContents",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "currentPage",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalPages",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string[]",
+                "name": "pagedArray",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "page",
+                "type": "uint256"
+            }
+        ],
+        "name": "paginatedContentsWithCampaigns",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "currentPage",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalPages",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "campaign",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "content",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct CampaignAndContent[]",
+                "name": "pagedArray",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "kind",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "value",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct ConfigOracleData[]",
+                "name": "configs",
+                "type": "tuple[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "enum QA_METHOD",
+                        "name": "method",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "pct",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "kind",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct QualificationOracleData[]",
+                "name": "qualifications",
+                "type": "tuple[]"
+            }
+        ],
+        "name": "setContentData",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "campaign",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "contentLink",
+                "type": "string"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "social",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "string",
+                                "name": "method",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "value",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct KPIsOracleData[]",
+                        "name": "kpis",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct SocialKPIsOracleData",
+                "name": "socialKPIs",
+                "type": "tuple"
+            }
+        ],
+        "name": "updateKPIs",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

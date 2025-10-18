@@ -1,6 +1,65 @@
-type ExampleEntity @entity {
-  id: Bytes!
-  count: BigInt!
+type EchoMarket @entity(immutable: false) {
+  id: String! # string
+  totalCampaigns: BigInt # uint256
+  totalPostsV1: BigInt # uint256
+  totalPostsV2: BigInt # uint256
+  totalEligibleContentsV1: BigInt # uint256
+  totalEligibleContentsV2: BigInt # uint256
+  totalEffectiveKPIsV1: BigInt # uint256
+  totalEffectiveKPIsV2: BigInt # uint256
+}
+
+type Campaign @entity(immutable: false) {
+  id: Bytes! # address
   clonedCampaign: Bytes! # address
-  owner: Bytes! # address
+  implementation: Bytes! # address
+  name: String! # string
+  campaignCreator: Bytes! # address
+  totalPosts: BigInt! # uint256
+  startTime: BigInt! # uint256
+  endTime: BigInt! # uint256
+  socialMedia: String! # string
+  budgetToken: Bytes! # address
+  budgetSize: BigInt! # uint256
+  lastDonateAmount: BigInt! # uint256
+  totalPaidAmount: BigInt! # uint256
+  maxPerPost: BigInt! # uint256
+  refundAddress: Bytes! # address
+  applicationFee: BigInt! # uint256
+  totalEffectiveKPIs: BigInt! # uint256
+  totalEligibleContents: BigInt! # uint256
+  lastPostTime: BigInt! # uint256
+  lastUpdatedTime: BigInt! # uint256
+  ipfsCID: String! # string
+  isPaused: Boolean! # bool
+  isFinalized: Boolean! # bool
+  isClaimable: Boolean! # bool
+}
+
+type Content @entity(immutable: false) {
+  id: String! # string
+  campaign: Bytes! # address
+  content: String! # string
+  postTime: BigInt! # uint256
+  lastUpdatedTime: BigInt! # uint256
+  contentTotalQAscore: BigInt! # uint256
+  contentTotalKPI: BigInt! # uint256
+  contentEffectiveKPI: BigInt! # uint256
+  isReadyForKPIs: Boolean! # bool
+  isClaimed: Boolean! # bool
+  claimedAmount: BigInt! # uint256
+  maxPerPost: BigInt! # uint256
+}
+
+type ContentAdditionalData @entity(immutable: false) {
+  id: String! # string
+  contentLink: String! # string
+  campaign: Bytes! # address
+  oracle: Bytes # address
+  configName: String # string
+  configValue: String # bytes
+  socialKindKPI: String # string
+  kpiAmount: BigInt # uint256
+  qaMethodKind: String # string
+  pctScore: BigInt # uint256
 }

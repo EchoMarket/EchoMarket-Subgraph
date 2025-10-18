@@ -10,20 +10,143 @@ dataSources:
     source:
       address: "0x8F1E629536C74e8d8f58cfcbb44aD9CDf66a2433"
       abi: EchoCampaignFactoryV1
-      startBlock: 21425024
+      startBlock: 21425030
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - CampaignCreated
-        - ImplementationChanged
+        - EchoMarket
+        - Campaign
       abis:
         - name: EchoCampaignFactoryV1
           file: ./abis/EchoCampaignFactoryV1.json
       eventHandlers:
-        - event: CampaignCreated(indexed address,indexed address,indexed address,string,uint256,string,uint256,(uint256,uint256,address,string,(address,uint128,uint128),(string,(uint8,uint248,uint256,string,string)[]),(uint8,uint88,address,string)[]))
+        - event: CampaignCreated(indexed address,indexed address,indexed
+            address,string,uint256,string,uint256,(uint256,uint256,address,string,(address,uint128,uint128),(string,(uint8,uint248,uint256,string,string)[]),(uint8,uint88,address,string)[]))
           handler: handleCampaignCreated
-        - event: ImplementationChanged(indexed address,indexed address)
-          handler: handleImplementationChanged
-      file: ./src/echo-campaign-factory-v-1.ts
+      file: ./src/echo-campaign-factory-v1.ts
+  - kind: ethereum
+    name: EchoCampaignFactoryV2
+    network: fraxtal
+    source:
+      address: "0xA68dCE23F3021809D08826ad1924658626486f21"
+      abi: EchoCampaignFactoryV2
+      startBlock: 25214342
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - EchoMarket
+        - Campaign
+      abis:
+        - name: EchoCampaignFactoryV2
+          file: ./abis/EchoCampaignFactoryV2.json
+      eventHandlers:
+        - event: CampaignCreated(indexed address,indexed address,indexed
+            address,string,uint256,string,uint256,(uint256,uint256,address,string,(address,uint128,uint128),(string,(uint8,uint248,uint256,string,string)[]),(uint8,uint88,address,string)[]))
+          handler: handleCampaignCreated
+      file: ./src/echo-campaign-factory-v2.ts
+  - kind: ethereum
+    name: EchoContentsV1
+    network: fraxtal
+    source:
+      address: "0x0DAc89c5aA805eCd1967828331Fb16576125C0ee"
+      abi: EchoContentsV1
+      startBlock: 21425030
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - EchoMarket
+        - Campaign
+        - Content
+        - ContentAdditionalData
+      abis:
+        - name: EchoContentsV1
+          file: ./abis/EchoContentsV1.json
+      eventHandlers:
+        - event: ContentApplied(indexed address,indexed uint256,indexed uint256,string,uint256,string,uint256)
+          handler: handleContentApplied
+        - event: ContentConfigAdded(indexed address,indexed address,string,(string,bytes))
+          handler: handleContentConfigAdded
+        - event: ContentQAoverallScore(indexed address,string,indexed uint256)
+          handler: handleContentQAoverallScore
+        - event: NewQualificationSettled(indexed address,indexed address,string,string,uint256)
+          handler: handleNewQualificationSettled
+        - event: ReadyForKPIupdates(indexed address,string)
+          handler: handleReadyForKPIupdates
+        - event: KPIupdated(indexed address,indexed address,string,uint256,string,uint256)
+          handler: handleKPIupdated
+        - event: ContentTotalKPIupdated(indexed address,string,indexed uint256)
+          handler: handleContentTotalKPIupdated
+        - event: ContentEffectiveKPIupdated(indexed address,string,bool,indexed uint256,uint256,indexed uint256,uint256,uint256,string,uint256,uint256)
+          handler: handleContentEffectiveKPIupdated
+      file: ./src/echo-contents-v1.ts
+  - kind: ethereum
+    name: EchoContentsV2
+    network: fraxtal
+    source:
+      address: "0x0DAc89c5aA805eCd1967828331Fb16576125C0ee"
+      abi: EchoContentsV2
+      startBlock: 21425030
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - EchoMarket
+        - Campaign
+        - Content
+        - ContentAdditionalData
+      abis:
+        - name: EchoContentsV2
+          file: ./abis/EchoContentsV2.json
+      eventHandlers:
+        - event: ContentApplied(indexed address,indexed uint256,indexed uint256,string,uint256,string,uint256)
+          handler: handleContentApplied
+        - event: ContentConfigAdded(indexed address,indexed address,string,(string,bytes))
+          handler: handleContentConfigAdded
+        - event: ContentQAoverallScore(indexed address,string,indexed uint256)
+          handler: handleContentQAoverallScore
+        - event: NewQualificationSettled(indexed address,indexed address,string,string,uint256)
+          handler: handleNewQualificationSettled
+        - event: ReadyForKPIupdates(indexed address,string)
+          handler: handleReadyForKPIupdates
+        - event: KPIupdated(indexed address,indexed address,string,uint256,string,uint256)
+          handler: handleKPIupdated
+        - event: ContentTotalKPIupdated(indexed address,string,indexed uint256)
+          handler: handleContentTotalKPIupdated
+        - event: ContentEffectiveKPIupdated(indexed address,string,bool,indexed uint256,uint256,indexed uint256,uint256,uint256,string,uint256,uint256)
+          handler: handleContentEffectiveKPIupdated
+      file: ./src/echo-contents-v2.ts
+templates:
+  - name: EchoCampaign
+    kind: ethereum/contract
+    network: fraxtal
+    source:
+      abi: EchoCampaign
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/echo-campaign.ts
+      entities:
+        - Campaign
+        - Content
+      abis:
+        - name: EchoCampaign
+          file: ./abis/EchoCampaign.json
+      eventHandlers:
+        - event: CampaignPauseToggled(indexed bool,address)
+          handler: handleCampaignPauseToggled
+        - event: BudgetIncreased(indexed uint256,indexed uint256,indexed uint256,address,address)
+          handler: handleBudgetIncreased
+        - event: CampaignFinalized(indexed address,indexed uint8,indexed uint256,uint256,address)
+          handler: handleCampaignFinalized
+        - event: Claimed(indexed address,indexed uint256,indexed uint256,uint256,string,address)
+          handler: handleClaimed
+        - event: CampaignFinished(indexed uint256,address)
+          handler: handleCampaignFinished

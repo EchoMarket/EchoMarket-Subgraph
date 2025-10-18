@@ -1,0 +1,427 @@
+[
+  {
+    "inputs": [
+      { "internalType": "address", "name": "echoAdmin", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "currentImplementation",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "maxCampaignTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "CHECK_MAX_CAMPAIGN_DURATION",
+    "type": "error"
+  },
+  { "inputs": [], "name": "END_TIME_LOWER_THAN_START_TIME", "type": "error" },
+  {
+    "inputs": [],
+    "name": "MAX_PER_POST_BIGGER_THAN_RESERVED_AMOUNT",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "address", "name": "clonedCampaign", "type": "address" }
+    ],
+    "name": "NAME_EXISTS",
+    "type": "error"
+  },
+  { "inputs": [], "name": "NAME_LENGTH_LONGER_THAN_64_BYTES", "type": "error" },
+  { "inputs": [], "name": "NAME_LENGTH_LOWER_THAN_8_BYTES", "type": "error" },
+  { "inputs": [], "name": "NO_KPIS", "type": "error" },
+  { "inputs": [], "name": "NO_QUALIFICATION", "type": "error" },
+  { "inputs": [], "name": "NULL_CID", "type": "error" },
+  { "inputs": [], "name": "ONLY_ALLOWED_SOCIAL_KPIS", "type": "error" },
+  { "inputs": [], "name": "ONLY_PROTOCOL_ADMIN", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "token", "type": "address" }
+    ],
+    "name": "ONLY_WHITELISTED_TOKEN",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "qaActionKind", "type": "string" }
+    ],
+    "name": "QA_METHOD_OR_ORACLE_NOT_ALLOWED",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "kpiActionKind", "type": "string" }
+    ],
+    "name": "SOCIAL_KPI_RATIO_IS_ZERO",
+    "type": "error"
+  },
+  { "inputs": [], "name": "START_TIME_IN_PAST", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "sumOfPct", "type": "uint256" }
+    ],
+    "name": "SUM_OF_QUALIFICATION_PARAMS_MUST_BE_100",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "sumOfPct", "type": "uint256" }
+    ],
+    "name": "SUM_OF_SOCIAL_KPI_PARAMS_MUST_BE_100",
+    "type": "error"
+  },
+  { "inputs": [], "name": "ZERO_ADDRESS_PROVIDED", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "clonedCampaign",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "applicationFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "EchoMarketData",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalClonedCampaigns",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          { "internalType": "uint256", "name": "startTime", "type": "uint256" },
+          { "internalType": "uint256", "name": "endTime", "type": "uint256" },
+          {
+            "internalType": "address",
+            "name": "refundAddress",
+            "type": "address"
+          },
+          { "internalType": "string", "name": "ipfsCID", "type": "string" },
+          {
+            "components": [
+              { "internalType": "address", "name": "token", "type": "address" },
+              {
+                "internalType": "uint128",
+                "name": "maxPerPost",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint128",
+                "name": "reservedAmount",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct BudgetInfo",
+            "name": "budgetInfo",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              { "internalType": "string", "name": "social", "type": "string" },
+              {
+                "components": [
+                  { "internalType": "uint8", "name": "pct", "type": "uint8" },
+                  {
+                    "internalType": "uint248",
+                    "name": "min",
+                    "type": "uint248"
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "ratio",
+                    "type": "uint256"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "method",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "extra",
+                    "type": "string"
+                  }
+                ],
+                "internalType": "struct KPI[]",
+                "name": "kpis",
+                "type": "tuple[]"
+              }
+            ],
+            "internalType": "struct SocialKPIs",
+            "name": "socialKPIs",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "enum QA_METHOD",
+                "name": "method",
+                "type": "uint8"
+              },
+              { "internalType": "uint88", "name": "pct", "type": "uint88" },
+              {
+                "internalType": "address",
+                "name": "oracle",
+                "type": "address"
+              },
+              { "internalType": "string", "name": "kind", "type": "string" }
+            ],
+            "internalType": "struct QualificationData[]",
+            "name": "qaData",
+            "type": "tuple[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct InitCampaign",
+        "name": "initCampaign",
+        "type": "tuple"
+      }
+    ],
+    "name": "CampaignCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "lastImplementation",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "ImplementationChanged",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "ECHO_ADMIN",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ECHO_CONTENTS",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "allCampaigns",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "name": "campaignNameHashToName",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "string", "name": "name", "type": "string" }],
+    "name": "campaignNameToInitData",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint64", "name": "initTime", "type": "uint64" },
+          {
+            "internalType": "address",
+            "name": "clonedCampaign",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "implementation",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct CampaignInitData",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "changeImplementation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "owner", "type": "address" },
+      { "internalType": "string", "name": "name", "type": "string" },
+      {
+        "components": [
+          { "internalType": "uint256", "name": "startTime", "type": "uint256" },
+          { "internalType": "uint256", "name": "endTime", "type": "uint256" },
+          {
+            "internalType": "address",
+            "name": "refundAddress",
+            "type": "address"
+          },
+          { "internalType": "string", "name": "ipfsCID", "type": "string" },
+          {
+            "components": [
+              { "internalType": "address", "name": "token", "type": "address" },
+              {
+                "internalType": "uint128",
+                "name": "maxPerPost",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint128",
+                "name": "reservedAmount",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct BudgetInfo",
+            "name": "budgetInfo",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              { "internalType": "string", "name": "social", "type": "string" },
+              {
+                "components": [
+                  { "internalType": "uint8", "name": "pct", "type": "uint8" },
+                  {
+                    "internalType": "uint248",
+                    "name": "min",
+                    "type": "uint248"
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "ratio",
+                    "type": "uint256"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "method",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "extra",
+                    "type": "string"
+                  }
+                ],
+                "internalType": "struct KPI[]",
+                "name": "kpis",
+                "type": "tuple[]"
+              }
+            ],
+            "internalType": "struct SocialKPIs",
+            "name": "socialKPIs",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "enum QA_METHOD",
+                "name": "method",
+                "type": "uint8"
+              },
+              { "internalType": "uint88", "name": "pct", "type": "uint88" },
+              {
+                "internalType": "address",
+                "name": "oracle",
+                "type": "address"
+              },
+              { "internalType": "string", "name": "kind", "type": "string" }
+            ],
+            "internalType": "struct QualificationData[]",
+            "name": "qaData",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct InitCampaign",
+        "name": "initCampaign",
+        "type": "tuple"
+      }
+    ],
+    "name": "createCampaign",
+    "outputs": [
+      { "internalType": "address", "name": "clonedCampaign", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "implementation",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "page", "type": "uint256" }
+    ],
+    "name": "paginatedCampaigns",
+    "outputs": [
+      { "internalType": "uint256", "name": "currentPage", "type": "uint256" },
+      { "internalType": "uint256", "name": "totalPages", "type": "uint256" },
+      { "internalType": "address[]", "name": "pagedArray", "type": "address[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
