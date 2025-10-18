@@ -1,13 +1,13 @@
 {
-  "name": "echo-market-mainnet",
+  "name": "echomarket-mainnet",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ echo-market-mainnet",
-    "create-local": "graph create --node http://localhost:8020/ echo-market-mainnet",
-    "remove-local": "graph remove --node http://localhost:8020/ echo-market-mainnet",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 echo-market-mainnet",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ echomarket-mainnet",
+    "create-local": "graph create --node http://localhost:8020/ echomarket-mainnet",
+    "remove-local": "graph remove --node http://localhost:8020/ echomarket-mainnet",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 echomarket-mainnet",
     "test": "graph test"
   },
   "dependencies": {
