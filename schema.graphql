@@ -34,6 +34,7 @@ type Campaign @entity(immutable: false) {
   isPaused: Boolean! # bool
   isFinalized: Boolean! # bool
   isClaimable: Boolean! # bool
+  timestamp_: BigInt!
 }
 
 type Content @entity(immutable: false) {
@@ -49,6 +50,7 @@ type Content @entity(immutable: false) {
   isClaimed: Boolean! # bool
   claimedAmount: BigInt! # uint256
   maxPerPost: BigInt! # uint256
+  timestamp_: BigInt!
 }
 
 type ContentAdditionalData @entity(immutable: false) {
@@ -62,4 +64,5 @@ type ContentAdditionalData @entity(immutable: false) {
   kpiAmount: BigInt # uint256
   qaMethodKind: String # string
   pctScore: BigInt # uint256
+  timestamp_: BigInt!
 }

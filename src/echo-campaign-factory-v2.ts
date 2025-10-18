@@ -3,7 +3,7 @@ import { CampaignCreated as CampaignCreatedEvent } from "../generated/EchoCampai
 import { EchoMarket, Campaign } from "../generated/schema";
 import { EchoCampaign } from "../generated/templates";
 
-export function handleCampaignCreated(event: CampaignCreatedEvent): void {
+export function handleCampaignCreatedV2(event: CampaignCreatedEvent): void {
   EchoCampaign.create(event.params.clonedCampaign);
 
   let echoMarket = EchoMarket.load("EchoMarketData");
@@ -66,6 +66,7 @@ export function handleCampaignCreated(event: CampaignCreatedEvent): void {
   campaign.totalEffectiveKPIs = BigInt.zero();
   campaign.totalEligibleContents = BigInt.zero();
   campaign.totalPaidAmount = BigInt.zero();
+  campaign.timestamp_ = event.block.timestamp;
 
   echoMarket.save();
   campaign.save();

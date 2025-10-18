@@ -24,7 +24,7 @@ dataSources:
       eventHandlers:
         - event: CampaignCreated(indexed address,indexed address,indexed
             address,string,uint256,string,uint256,(uint256,uint256,address,string,(address,uint128,uint128),(string,(uint8,uint248,uint256,string,string)[]),(uint8,uint88,address,string)[]))
-          handler: handleCampaignCreated
+          handler: handleCampaignCreatedV1
       file: ./src/echo-campaign-factory-v1.ts
   - kind: ethereum
     name: EchoCampaignFactoryV2
@@ -46,7 +46,7 @@ dataSources:
       eventHandlers:
         - event: CampaignCreated(indexed address,indexed address,indexed
             address,string,uint256,string,uint256,(uint256,uint256,address,string,(address,uint128,uint128),(string,(uint8,uint248,uint256,string,string)[]),(uint8,uint88,address,string)[]))
-          handler: handleCampaignCreated
+          handler: handleCampaignCreatedV2
       file: ./src/echo-campaign-factory-v2.ts
   - kind: ethereum
     name: EchoContentsV1
@@ -69,21 +69,21 @@ dataSources:
           file: ./abis/EchoContentsV1.json
       eventHandlers:
         - event: ContentApplied(indexed address,indexed uint256,indexed uint256,string,uint256,string,uint256)
-          handler: handleContentApplied
+          handler: handleContentAppliedV1
         - event: ContentConfigAdded(indexed address,indexed address,string,(string,bytes))
-          handler: handleContentConfigAdded
+          handler: handleContentConfigAddedV1
         - event: ContentQAoverallScore(indexed address,string,indexed uint256)
-          handler: handleContentQAoverallScore
+          handler: handleContentQAoverallScoreV1
         - event: NewQualificationSettled(indexed address,indexed address,string,string,uint256)
-          handler: handleNewQualificationSettled
+          handler: handleNewQualificationSettledV1
         - event: ReadyForKPIupdates(indexed address,string)
-          handler: handleReadyForKPIupdates
+          handler: handleReadyForKPIupdatesV1
         - event: KPIupdated(indexed address,indexed address,string,uint256,string,uint256)
-          handler: handleKPIupdated
+          handler: handleKPIupdatedV1
         - event: ContentTotalKPIupdated(indexed address,string,indexed uint256)
-          handler: handleContentTotalKPIupdated
+          handler: handleContentTotalKPIupdatedV1
         - event: ContentEffectiveKPIupdated(indexed address,string,bool,indexed uint256,uint256,indexed uint256,uint256,uint256,string,uint256,uint256)
-          handler: handleContentEffectiveKPIupdated
+          handler: handleContentEffectiveKPIupdatedV1
       file: ./src/echo-contents-v1.ts
   - kind: ethereum
     name: EchoContentsV2
@@ -106,21 +106,21 @@ dataSources:
           file: ./abis/EchoContentsV2.json
       eventHandlers:
         - event: ContentApplied(indexed address,indexed uint256,indexed uint256,string,uint256,string,uint256)
-          handler: handleContentApplied
+          handler: handleContentAppliedV2
         - event: ContentConfigAdded(indexed address,indexed address,string,(string,bytes))
-          handler: handleContentConfigAdded
+          handler: handleContentConfigAddedV2
         - event: ContentQAoverallScore(indexed address,string,indexed uint256)
-          handler: handleContentQAoverallScore
+          handler: handleContentQAoverallScoreV2
         - event: NewQualificationSettled(indexed address,indexed address,string,string,uint256)
-          handler: handleNewQualificationSettled
+          handler: handleNewQualificationSettledV2
         - event: ReadyForKPIupdates(indexed address,string)
-          handler: handleReadyForKPIupdates
+          handler: handleReadyForKPIupdatesV2
         - event: KPIupdated(indexed address,indexed address,string,uint256,string,uint256)
-          handler: handleKPIupdated
+          handler: handleKPIupdatedV2
         - event: ContentTotalKPIupdated(indexed address,string,indexed uint256)
-          handler: handleContentTotalKPIupdated
+          handler: handleContentTotalKPIupdatedV2
         - event: ContentEffectiveKPIupdated(indexed address,string,bool,indexed uint256,uint256,indexed uint256,uint256,uint256,string,uint256,uint256)
-          handler: handleContentEffectiveKPIupdated
+          handler: handleContentEffectiveKPIupdatedV2
       file: ./src/echo-contents-v2.ts
 templates:
   - name: EchoCampaign

@@ -16,7 +16,7 @@ import {
   ContentAdditionalData,
 } from "../generated/schema";
 
-export function handleContentApplied(event: ContentAppliedEvent): void {
+export function handleContentAppliedV1(event: ContentAppliedEvent): void {
   let echoMarket = EchoMarket.load("EchoMarketData");
   let campaign = Campaign.load(event.params.campaign);
   let content = new Content(
@@ -49,18 +49,33 @@ export function handleContentApplied(event: ContentAppliedEvent): void {
   content.isClaimed = false;
   content.isReadyForKPIs = false;
   content.maxPerPost = event.params.campaignMaxPerPost;
+  content.timestamp_ = event.block.timestamp;
 
   content.save();
 }
 
-export function handleContentConfigAdded(event: ContentConfigAddedEvent): void {
-  let contentAdditionalData = new ContentAdditionalData(
+export function handleContentConfigAddedV1(
+  event: ContentConfigAddedEvent
+): void {
+  let contentAdditionalData = ContentAdditionalData.load(
     event.params.contentLink
       .concat(":")
       .concat(event.params.campaign.toHexString())
       .concat("_CONFIG: ")
       .concat(event.params.newConfig.kind)
   );
+
+  if (!contentAdditionalData) {
+    contentAdditionalData = new ContentAdditionalData(
+      event.params.contentLink
+        .concat(":")
+        .concat(event.params.campaign.toHexString())
+        .concat("_CONFIG: ")
+        .concat(event.params.newConfig.kind)
+    );
+
+    contentAdditionalData.timestamp_ = event.block.timestamp;
+  }
 
   contentAdditionalData.configName = "CONFIG: ".concat(
     event.params.newConfig.kind
@@ -70,34 +85,56 @@ export function handleContentConfigAdded(event: ContentConfigAddedEvent): void {
   contentAdditionalData.campaign = event.params.campaign;
   contentAdditionalData.contentLink = event.params.contentLink;
   contentAdditionalData.oracle = event.params.oracle;
+  contentAdditionalData.timestamp_ = event.block.timestamp;
 
   contentAdditionalData.save();
 }
 
-export function handleContentQAoverallScore(
+export function handleContentQAoverallScoreV1(
   event: ContentQAoverallScoreEvent
 ): void {
-  let content = new Content(
+  let content = Content.load(
     event.params.contentLink
       .concat(":")
       .concat(event.params.campaign.toHexString())
   );
 
-  content.contentTotalQAscore = event.params.QAoverallScore;
+  if (!content) {
+    content = new Content(
+      event.params.contentLink
+        .concat(":")
+        .concat(event.params.campaign.toHexString())
+    );
+
+    content.contentTotalQAscore = event.params.QAoverallScore;
+    content.timestamp_ = event.block.timestamp;
+  }
 
   content.save();
 }
 
-export function handleNewQualificationSettled(
+export function handleNewQualificationSettledV1(
   event: NewQualificationSettledEvent
 ): void {
-  let contentAdditionalData = new ContentAdditionalData(
+  let contentAdditionalData = ContentAdditionalData.load(
     event.params.contentLink
       .concat(":")
       .concat(event.params.campaign.toHexString())
       .concat("_")
       .concat(event.params.qaMethodKind)
   );
+
+  if (!contentAdditionalData) {
+    contentAdditionalData = new ContentAdditionalData(
+      event.params.contentLink
+        .concat(":")
+        .concat(event.params.campaign.toHexString())
+        .concat("_")
+        .concat(event.params.qaMethodKind)
+    );
+
+    contentAdditionalData.timestamp_ = event.block.timestamp;
+  }
 
   contentAdditionalData.qaMethodKind = event.params.qaMethodKind;
   contentAdditionalData.pctScore = event.params.pctScore;
@@ -108,7 +145,9 @@ export function handleNewQualificationSettled(
   contentAdditionalData.save();
 }
 
-export function handleReadyForKPIupdates(event: ReadyForKPIupdatesEvent): void {
+export function handleReadyForKPIupdatesV1(
+  event: ReadyForKPIupdatesEvent
+): void {
   let content = Content.load(
     event.params.contentLink
       .concat(":")
@@ -121,15 +160,27 @@ export function handleReadyForKPIupdates(event: ReadyForKPIupdatesEvent): void {
   }
 }
 
-export function handleKPIupdated(event: KPIupdatedEvent): void {
+export function handleKPIupdatedV1(event: KPIupdatedEvent): void {
   let campaign = Campaign.load(event.params.campaign);
-  let contentAdditionalData = new ContentAdditionalData(
+  let contentAdditionalData = ContentAdditionalData.load(
     event.params.contentLink
       .concat(":")
       .concat(event.params.campaign.toHexString())
       .concat("_")
       .concat(event.params.socialKindKPI)
   );
+
+  if (!contentAdditionalData) {
+    contentAdditionalData = new ContentAdditionalData(
+      event.params.contentLink
+        .concat(":")
+        .concat(event.params.campaign.toHexString())
+        .concat("_")
+        .concat(event.params.socialKindKPI)
+    );
+
+    contentAdditionalData.timestamp_ = event.block.timestamp;
+  }
 
   if (campaign) {
     campaign.lastUpdatedTime = event.params.lastCampaignUpdateTime;
@@ -146,7 +197,7 @@ export function handleKPIupdated(event: KPIupdatedEvent): void {
   contentAdditionalData.save();
 }
 
-export function handleContentTotalKPIupdated(
+export function handleContentTotalKPIupdatedV1(
   event: ContentTotalKPIupdatedEvent
 ): void {
   let content = Content.load(
@@ -162,7 +213,7 @@ export function handleContentTotalKPIupdated(
   }
 }
 
-export function handleContentEffectiveKPIupdated(
+export function handleContentEffectiveKPIupdatedV1(
   event: ContentEffectiveKPIupdatedEvent
 ): void {
   let echoMarket = EchoMarket.load("EchoMarketData");
