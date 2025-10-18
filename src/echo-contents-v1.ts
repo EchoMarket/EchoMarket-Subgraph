@@ -105,10 +105,11 @@ export function handleContentQAoverallScoreV1(
         .concat(":")
         .concat(event.params.campaign.toHexString())
     );
-
-    content.contentTotalQAscore = event.params.QAoverallScore;
+    
     content.timestamp_ = event.block.timestamp;
   }
+
+  content.contentTotalQAscore = event.params.QAoverallScore;
 
   content.save();
 }
