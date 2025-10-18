@@ -89,9 +89,9 @@ dataSources:
     name: EchoContentsV2
     network: fraxtal
     source:
-      address: "0x0DAc89c5aA805eCd1967828331Fb16576125C0ee"
+      address: "0x428E11662bc9c72d966E2089C19B13D265273428"
       abi: EchoContentsV2
-      startBlock: 21425030
+      startBlock: 25214342
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
