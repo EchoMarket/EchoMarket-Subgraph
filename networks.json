@@ -1,20 +1,12 @@
 {
-  "fraxtal": {
-    "EchoCampaignFactoryV1": {
-      "address": "0x8F1E629536C74e8d8f58cfcbb44aD9CDf66a2433",
-      "startBlock": 21425030
-    },
+  "base-sepolia": {
     "EchoCampaignFactoryV2": {
-      "address": "0xA68dCE23F3021809D08826ad1924658626486f21",
-      "startBlock": 25214342
-    },
-    "EchoContentsV1": {
-      "address": "0x0DAc89c5aA805eCd1967828331Fb16576125C0ee",
-      "startBlock": 21425030
+      "address": "0xeb46b7f9CF53323100c8E5f53598EA0e98385B18",
+      "startBlock": 33631480
     },
     "EchoContentsV2": {
-      "address": "0x428E11662bc9c72d966E2089C19B13D265273428",
-      "startBlock": 25214342
+      "address": "0x54aa6f498D79875d10a20087eFEd677D2b42B164",
+      "startBlock": 33631480
     }
   }
 }

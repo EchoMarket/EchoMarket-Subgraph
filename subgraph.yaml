@@ -5,34 +5,12 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: EchoCampaignFactoryV1
-    network: fraxtal
-    source:
-      address: "0x8F1E629536C74e8d8f58cfcbb44aD9CDf66a2433"
-      abi: EchoCampaignFactoryV1
-      startBlock: 21425030
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - EchoMarket
-        - Campaign
-      abis:
-        - name: EchoCampaignFactoryV1
-          file: ./abis/EchoCampaignFactoryV1.json
-      eventHandlers:
-        - event: CampaignCreated(indexed address,indexed address,indexed
-            address,string,uint256,string,uint256,(uint256,uint256,address,string,(address,uint128,uint128),(string,(uint8,uint248,uint256,string,string)[]),(uint8,uint88,address,string)[]))
-          handler: handleCampaignCreatedV1
-      file: ./src/echo-campaign-factory-v1.ts
-  - kind: ethereum
     name: EchoCampaignFactoryV2
-    network: fraxtal
+    network: base-sepolia
     source:
-      address: "0xA68dCE23F3021809D08826ad1924658626486f21"
+      address: "0xeb46b7f9CF53323100c8E5f53598EA0e98385B18"
       abi: EchoCampaignFactoryV2
-      startBlock: 25214342
+      startBlock: 33631480
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -49,49 +27,12 @@ dataSources:
           handler: handleCampaignCreatedV2
       file: ./src/echo-campaign-factory-v2.ts
   - kind: ethereum
-    name: EchoContentsV1
-    network: fraxtal
-    source:
-      address: "0x0DAc89c5aA805eCd1967828331Fb16576125C0ee"
-      abi: EchoContentsV1
-      startBlock: 21425030
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - EchoMarket
-        - Campaign
-        - Content
-        - ContentAdditionalData
-      abis:
-        - name: EchoContentsV1
-          file: ./abis/EchoContentsV1.json
-      eventHandlers:
-        - event: ContentApplied(indexed address,indexed uint256,indexed uint256,string,uint256,string,uint256)
-          handler: handleContentAppliedV1
-        - event: ContentConfigAdded(indexed address,indexed address,string,(string,bytes))
-          handler: handleContentConfigAddedV1
-        - event: ContentQAoverallScore(indexed address,string,indexed uint256)
-          handler: handleContentQAoverallScoreV1
-        - event: NewQualificationSettled(indexed address,indexed address,string,string,uint256)
-          handler: handleNewQualificationSettledV1
-        - event: ReadyForKPIupdates(indexed address,string)
-          handler: handleReadyForKPIupdatesV1
-        - event: KPIupdated(indexed address,indexed address,string,uint256,string,uint256)
-          handler: handleKPIupdatedV1
-        - event: ContentTotalKPIupdated(indexed address,string,indexed uint256)
-          handler: handleContentTotalKPIupdatedV1
-        - event: ContentEffectiveKPIupdated(indexed address,string,bool,indexed uint256,uint256,indexed uint256,uint256,uint256,string,uint256,uint256)
-          handler: handleContentEffectiveKPIupdatedV1
-      file: ./src/echo-contents-v1.ts
-  - kind: ethereum
     name: EchoContentsV2
-    network: fraxtal
+    network: base-sepolia
     source:
-      address: "0x428E11662bc9c72d966E2089C19B13D265273428"
+      address: "0x54aa6f498D79875d10a20087eFEd677D2b42B164"
       abi: EchoContentsV2
-      startBlock: 25214342
+      startBlock: 33631480
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -125,7 +66,7 @@ dataSources:
 templates:
   - name: EchoCampaign
     kind: ethereum/contract
-    network: fraxtal
+    network: base-sepolia
     source:
       abi: EchoCampaign
     mapping:
