@@ -1,4 +1,6 @@
 specVersion: 1.0.0
+description: ECHOMARKET
+repository: https://github.com/echomarket/echomarket-subgraph
 indexerHints:
   prune: auto
 schema:
