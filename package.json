@@ -4,7 +4,7 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ echomarket-mainnet-v1",
+    "deploy": "goldsky subgraph deploy echo-market-mainnet/1.0.0",
     "create-local": "graph create --node http://localhost:8020/ echomarket-mainnet-v1",
     "remove-local": "graph remove --node http://localhost:8020/ echomarket-mainnet-v1",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 echomarket-mainnet-v1",
