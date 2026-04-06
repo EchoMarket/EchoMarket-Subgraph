@@ -1,12 +1,13 @@
 type EchoMarket @entity(immutable: false) {
   id: String! # string
-  totalCampaigns: BigInt # uint256
-  totalPostsV1: BigInt # uint256
-  totalPostsV2: BigInt # uint256
-  totalEligibleContentsV1: BigInt # uint256
-  totalEligibleContentsV2: BigInt # uint256
-  totalEffectiveKPIsV1: BigInt # uint256
-  totalEffectiveKPIsV2: BigInt # uint256
+  totalCampaignsV1: BigInt! # uint256 - total campaigns created via V1 factory
+  totalCampaignsV2: BigInt! # uint256 - total campaigns created via V2 factory
+  totalPostsV1: BigInt! # uint256
+  totalPostsV2: BigInt! # uint256
+  totalEligibleContentsV1: BigInt! # uint256
+  totalEligibleContentsV2: BigInt! # uint256
+  totalEffectiveKPIsV1: BigInt! # uint256
+  totalEffectiveKPIsV2: BigInt! # uint256
 }
 
 type Campaign @entity(immutable: false) {
@@ -15,6 +16,7 @@ type Campaign @entity(immutable: false) {
   implementation: Bytes! # address
   name: String! # string
   campaignCreator: Bytes! # address
+  version: Int! # 1 or 2 - which factory version created this campaign
   totalPosts: BigInt! # uint256
   startTime: BigInt! # uint256
   endTime: BigInt! # uint256
@@ -35,12 +37,13 @@ type Campaign @entity(immutable: false) {
   isFinalized: Boolean! # bool
   isClaimable: Boolean! # bool
   timestamp_: BigInt!
+  contents: [Content!]! @derivedFrom(field: "campaign")
 }
 
 type Content @entity(immutable: false) {
   id: String! # string
-  campaign: Bytes! # address
-  content: String! # string
+  campaign: Campaign! # address - typed entity reference
+  contentLink: String! # string - URL/link to the content
   postTime: BigInt! # uint256
   lastUpdatedTime: BigInt! # uint256
   contentTotalQAscore: BigInt! # uint256
@@ -51,12 +54,14 @@ type Content @entity(immutable: false) {
   claimedAmount: BigInt! # uint256
   maxPerPost: BigInt! # uint256
   timestamp_: BigInt!
+  additionalData: [ContentAdditionalData!]! @derivedFrom(field: "content")
 }
 
 type ContentAdditionalData @entity(immutable: false) {
   id: String! # string
-  contentLink: String! # string
-  campaign: Bytes! # address
+  content: Content! # typed entity reference to parent Content
+  contentLink: String! # string - raw content URL for direct querying
+  campaign: Campaign! # address - typed entity reference
   oracle: Bytes # address
   configName: String # string
   configValue: String # bytes

@@ -10,6 +10,8 @@ export function handleCampaignCreatedV1(event: CampaignCreatedEvent): void {
 
   if (!echoMarket) {
     echoMarket = new EchoMarket("EchoMarketData");
+    echoMarket.totalCampaignsV1 = BigInt.zero();
+    echoMarket.totalCampaignsV2 = BigInt.zero();
     echoMarket.totalPostsV1 = BigInt.zero();
     echoMarket.totalPostsV2 = BigInt.zero();
     echoMarket.totalEligibleContentsV1 = BigInt.zero();
@@ -18,7 +20,7 @@ export function handleCampaignCreatedV1(event: CampaignCreatedEvent): void {
     echoMarket.totalEffectiveKPIsV2 = BigInt.zero();
   }
 
-  echoMarket.totalCampaigns = event.params.totalClonedCampaigns;
+  echoMarket.totalCampaignsV1 = event.params.totalClonedCampaigns;
 
   let campaign = new Campaign(event.params.clonedCampaign);
 
@@ -46,6 +48,7 @@ export function handleCampaignCreatedV1(event: CampaignCreatedEvent): void {
   campaign.implementation = implementation;
   campaign.name = name;
   campaign.campaignCreator = owner;
+  campaign.version = 1;
   campaign.startTime = startTime;
   campaign.endTime = endTime;
   campaign.socialMedia = social;
@@ -55,7 +58,7 @@ export function handleCampaignCreatedV1(event: CampaignCreatedEvent): void {
   campaign.refundAddress = refundAddress;
   campaign.applicationFee = applicationFee;
   campaign.ipfsCID = ipfsCID;
-  
+
   campaign.totalPosts = BigInt.zero();
   campaign.isPaused = false;
   campaign.isFinalized = false;

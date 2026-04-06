@@ -19,11 +19,10 @@ import {
 export function handleContentAppliedV1(event: ContentAppliedEvent): void {
   let echoMarket = EchoMarket.load("EchoMarketData");
   let campaign = Campaign.load(event.params.campaign);
-  let content = new Content(
-    event.params.contentLink
-      .concat(":")
-      .concat(event.params.campaign.toHexString())
-  );
+  let contentId = event.params.contentLink
+    .concat(":")
+    .concat(event.params.campaign.toHexString());
+  let content = new Content(contentId);
 
   if (echoMarket) {
     echoMarket.totalPostsV1 = event.params.totalPosts;
@@ -39,7 +38,7 @@ export function handleContentAppliedV1(event: ContentAppliedEvent): void {
   }
 
   content.campaign = event.params.campaign;
-  content.content = event.params.contentLink;
+  content.contentLink = event.params.contentLink;
   content.postTime = event.params.lastPostTime;
   content.contentTotalKPI = BigInt.zero();
   content.lastUpdatedTime = BigInt.zero();
@@ -57,26 +56,22 @@ export function handleContentAppliedV1(event: ContentAppliedEvent): void {
 export function handleContentConfigAddedV1(
   event: ContentConfigAddedEvent
 ): void {
-  let contentAdditionalData = ContentAdditionalData.load(
-    event.params.contentLink
-      .concat(":")
-      .concat(event.params.campaign.toHexString())
-      .concat("_CONFIG: ")
-      .concat(event.params.newConfig.kind)
-  );
+  let contentId = event.params.contentLink
+    .concat(":")
+    .concat(event.params.campaign.toHexString());
+  let additionalDataId = contentId
+    .concat("_CONFIG: ")
+    .concat(event.params.newConfig.kind);
+
+  let contentAdditionalData = ContentAdditionalData.load(additionalDataId);
 
   if (!contentAdditionalData) {
-    contentAdditionalData = new ContentAdditionalData(
-      event.params.contentLink
-        .concat(":")
-        .concat(event.params.campaign.toHexString())
-        .concat("_CONFIG: ")
-        .concat(event.params.newConfig.kind)
-    );
+    contentAdditionalData = new ContentAdditionalData(additionalDataId);
 
     contentAdditionalData.timestamp_ = event.block.timestamp;
   }
 
+  contentAdditionalData.content = contentId;
   contentAdditionalData.configName = "CONFIG: ".concat(
     event.params.newConfig.kind
   );
@@ -93,19 +88,23 @@ export function handleContentConfigAddedV1(
 export function handleContentQAoverallScoreV1(
   event: ContentQAoverallScoreEvent
 ): void {
-  let content = Content.load(
-    event.params.contentLink
-      .concat(":")
-      .concat(event.params.campaign.toHexString())
-  );
+  let contentId = event.params.contentLink
+    .concat(":")
+    .concat(event.params.campaign.toHexString());
+  let content = Content.load(contentId);
 
   if (!content) {
-    content = new Content(
-      event.params.contentLink
-        .concat(":")
-        .concat(event.params.campaign.toHexString())
-    );
-    
+    content = new Content(contentId);
+    content.campaign = event.params.campaign;
+    content.contentLink = event.params.contentLink;
+    content.postTime = BigInt.zero();
+    content.lastUpdatedTime = BigInt.zero();
+    content.contentTotalKPI = BigInt.zero();
+    content.contentEffectiveKPI = BigInt.zero();
+    content.isReadyForKPIs = false;
+    content.isClaimed = false;
+    content.claimedAmount = BigInt.zero();
+    content.maxPerPost = BigInt.zero();
     content.timestamp_ = event.block.timestamp;
   }
 
@@ -117,26 +116,22 @@ export function handleContentQAoverallScoreV1(
 export function handleNewQualificationSettledV1(
   event: NewQualificationSettledEvent
 ): void {
-  let contentAdditionalData = ContentAdditionalData.load(
-    event.params.contentLink
-      .concat(":")
-      .concat(event.params.campaign.toHexString())
-      .concat("_")
-      .concat(event.params.qaMethodKind)
-  );
+  let contentId = event.params.contentLink
+    .concat(":")
+    .concat(event.params.campaign.toHexString());
+  let additionalDataId = contentId
+    .concat("_")
+    .concat(event.params.qaMethodKind);
+
+  let contentAdditionalData = ContentAdditionalData.load(additionalDataId);
 
   if (!contentAdditionalData) {
-    contentAdditionalData = new ContentAdditionalData(
-      event.params.contentLink
-        .concat(":")
-        .concat(event.params.campaign.toHexString())
-        .concat("_")
-        .concat(event.params.qaMethodKind)
-    );
+    contentAdditionalData = new ContentAdditionalData(additionalDataId);
 
     contentAdditionalData.timestamp_ = event.block.timestamp;
   }
 
+  contentAdditionalData.content = contentId;
   contentAdditionalData.qaMethodKind = event.params.qaMethodKind;
   contentAdditionalData.pctScore = event.params.pctScore;
   contentAdditionalData.campaign = event.params.campaign;
@@ -163,22 +158,17 @@ export function handleReadyForKPIupdatesV1(
 
 export function handleKPIupdatedV1(event: KPIupdatedEvent): void {
   let campaign = Campaign.load(event.params.campaign);
-  let contentAdditionalData = ContentAdditionalData.load(
-    event.params.contentLink
-      .concat(":")
-      .concat(event.params.campaign.toHexString())
-      .concat("_")
-      .concat(event.params.socialKindKPI)
-  );
+  let contentId = event.params.contentLink
+    .concat(":")
+    .concat(event.params.campaign.toHexString());
+  let additionalDataId = contentId
+    .concat("_")
+    .concat(event.params.socialKindKPI);
+
+  let contentAdditionalData = ContentAdditionalData.load(additionalDataId);
 
   if (!contentAdditionalData) {
-    contentAdditionalData = new ContentAdditionalData(
-      event.params.contentLink
-        .concat(":")
-        .concat(event.params.campaign.toHexString())
-        .concat("_")
-        .concat(event.params.socialKindKPI)
-    );
+    contentAdditionalData = new ContentAdditionalData(additionalDataId);
 
     contentAdditionalData.timestamp_ = event.block.timestamp;
   }
@@ -189,6 +179,7 @@ export function handleKPIupdatedV1(event: KPIupdatedEvent): void {
     campaign.save();
   }
 
+  contentAdditionalData.content = contentId;
   contentAdditionalData.socialKindKPI = event.params.socialKindKPI;
   contentAdditionalData.kpiAmount = event.params.kpiAmount;
   contentAdditionalData.campaign = event.params.campaign;
